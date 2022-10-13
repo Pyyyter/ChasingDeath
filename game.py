@@ -7,7 +7,7 @@ class Game:
 		# Configurações gerais
 		pygame.init()
 		self.screen = pygame.display.set_mode((WIDTH,HEIGTH))
-		pygame.display.set_caption('Zelda')
+		pygame.display.set_caption('Chasing Death')
 		self.clock = pygame.time.Clock()
 	
 	def run(self):
@@ -17,7 +17,7 @@ class Game:
 					pygame.quit()
 					sys.exit()
 
-			self.screen.fill('black')
+			self.screen.fill('white')
 			pygame.display.update()
 			self.clock.tick(FPS)
 
