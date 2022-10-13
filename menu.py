@@ -31,8 +31,8 @@ while running:
     screen.blit(background, [-windowHeight+i, 0])
     if i == 9000:
         i = 0
-    i += 5
+    i += 2
     screen.blit(sidebar, [960, 0])
     pygame.display.update()
-    
+
 ###########################
