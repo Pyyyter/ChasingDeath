@@ -13,6 +13,10 @@ background = pygame.transform.scale(pygame.image.load(
 running = True
 i = 0
 
+##### Definindo Sidebar #####
+sidebar = pygame.transform.scale(pygame.image.load(
+    os.path.join("assets", "menu", "Sidebar.png")), (320, windowHeight))
+screen.blit(background, [960, 0])
 
 while running:
 
@@ -21,11 +25,14 @@ while running:
             running = False
             pygame.quit()
             quit()
+##### Animando Janela #####
 
     screen.blit(background, [-i, 0])
     screen.blit(background, [-windowHeight+i, 0])
     if i == 9000:
         i = 0
     i += 5
-
+    screen.blit(sidebar, [960, 0])
     pygame.display.update()
+    
+###########################
