@@ -3,14 +3,48 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "mapa.tmx",
     "expandedProjectPaths": [
     ],
+    "file.lastUsedOpenFilter": "Todos os Arquivos (*)",
     "fileStates": {
+        "": {
+            "scaleInDock": 1
+        },
+        "DesertTilemapBlankBackground.tsx": {
+            "scaleInDock": 1
+        },
+        "Mockup2.tsx": {
+            "scaleInDock": 1
+        },
+        "mapa.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": -282,
+                "y": -134
+            }
+        },
+        "player.tsx": {
+            "scaleInDock": 1
+        }
     },
+    "last.exportedFilePath": "C:/Users/pyyyt/Desktop",
+    "map.fixedSize": false,
+    "map.lastUsedExportFilter": "Arquivos CSV (*.csv)",
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
     "openFiles": [
+        "mapa.tmx"
     ],
     "project": "mapa1.tiled-project",
     "recentFiles": [
-    ]
+        "mapa.tmx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
 }

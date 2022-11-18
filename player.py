@@ -40,8 +40,7 @@ class Player(pygame.sprite.Sprite):
             self.direction.x = -1
         else :
             self.direction.x = 0
-
-
+            
 
     def move(self,speed):
         # Definindo função de movimento
