@@ -1,0 +1,98 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "D:/Faculdade/Projetos/Laboratório de Jogos/Chasing Death/assets/Mapa/Imagens/Maps.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "Agua.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Chãos de pedra.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "D:/Faculdade/Projetos/Laboratório de Jogos/Chasing Death/assets/Mapa/Imagens/Maps.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 3888,
+                "y": 2344
+            }
+        },
+        "D:/Faculdade/Projetos/Laboratório de Jogos/Chasing Death/assets/Mapa/Imagens/Água.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "D:/Faculdade/Projetos/Laboratório de Jogos/Chasing Death/assets/tileset/DesertTilemapBlankBackground.tsx": {
+            "scaleInDock": 1
+        },
+        "Estruturas base.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Gramas.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Objetos específicos.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Paredes.tsx": {
+            "scaleInDock": 0.75,
+            "scaleInEditor": 1
+        },
+        "Plantas.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Sombras das plantas.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Sombras de Objetos.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Água.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 0.5,
+            "scaleInEditor": 1
+        }
+    },
+    "last.exportedFilePath": "D:/Faculdade/Projetos/Laboratório de Jogos/Chasing Death/assets/Mapa/CSVs",
+    "last.imagePath": "C:/Users/pyyyt/Downloads",
+    "map.fixedSize": true,
+    "map.height": 142,
+    "map.lastUsedExportFilter": "Arquivos CSV (*.csv)",
+    "map.lastUsedFormat": "tmx",
+    "map.width": 225,
+    "openFiles": [
+        "D:/Faculdade/Projetos/Laboratório de Jogos/Chasing Death/assets/Mapa/Imagens/Maps.tmx",
+        "D:/Faculdade/Projetos/Laboratório de Jogos/Chasing Death/assets/Mapa/Imagens/Água.tsx"
+    ],
+    "project": "Mapa1.tiled-project",
+    "recentFiles": [
+        "Água.tsx",
+        "D:/Faculdade/Projetos/Laboratório de Jogos/Chasing Death/assets/Mapa/Imagens/Água.tsx",
+        "D:/Faculdade/Projetos/Laboratório de Jogos/Chasing Death/assets/Mapa/Imagens/Maps.tmx",
+        "Agua.tsx",
+        "Paredes.tsx",
+        "Chãos de pedra.tsx",
+        "Gramas.tsx",
+        "Estruturas base.tsx",
+        "Sombras de Objetos.tsx",
+        "Sombras das plantas.tsx",
+        "Objetos específicos.tsx",
+        "Plantas.tsx"
+    ],
+    "resizeMap.removeObjects": true,
+    "tileset.lastUsedFormat": "tsx"
+}
