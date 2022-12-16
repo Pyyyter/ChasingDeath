@@ -20,6 +20,8 @@ class Level:
 
         # Criando sprite de ataque
         self.current_attack = None
+        self.attack_sprites = pygame.sprite.Group()
+        self.attackable_sprites = pygame.sprite.Group()
 
         # Configurando sprites
         self.create_map()
@@ -48,13 +50,13 @@ class Level:
                         
                         if style == 'enemies':
                             if col == '420':
-                                self.player  = Enemy('bamboo',(x,y),[self.visible_sprites],self.obstacle_sprites)
+                                self.player  = Enemy('bamboo',(x,y),[self.visible_sprites,self.attackable_sprites],self.obstacle_sprites)
                             elif col == '69':
-                                self.player  = Enemy('squid',(x,y),[self.visible_sprites],self.obstacle_sprites)
+                                self.player  = Enemy('squid',(x,y),[self.visible_sprites,self.attackable_sprites],self.obstacle_sprites)
                             elif col == '24':
-                                self.player  = Enemy('spirit',(x,y),[self.visible_sprites],self.obstacle_sprites)
+                                self.player  = Enemy('spirit',(x,y),[self.visible_sprites,self.attackable_sprites],self.obstacle_sprites)
                             elif col == '22':
-                                self.player  = Enemy('raccoon',(x,y),[self.visible_sprites],self.obstacle_sprites)
+                                self.player  = Enemy('raccoon',(x,y),[self.visible_sprites,self.attackable_sprites ],self.obstacle_sprites)
                            
 
         self.player  = Player((4145,1900),[self.visible_sprites],self.obstacle_sprites, self.create_attack,self.destroy_attack, self.create_magic )
