@@ -1,10 +1,10 @@
 import pygame
 from settings import *
 from support import import_folder
+from entity import Entity
+class Player(Entity):
 
-class Player(pygame.sprite.Sprite):
-
-    def __init__(self, pos, groups, obstacles_sprites, create_attack,destroy_attack,create_magic):
+    def __init__(self, pos, groups, obstacle_sprites, create_attack,destroy_attack,create_magic):
 
         # Definindo player
         super().__init__(groups)
@@ -15,18 +15,17 @@ class Player(pygame.sprite.Sprite):
         # Setup dos gráficos
         self.import_player_assets()
         self.status = 'down'
-        self.frame_index = 0
-        self.animation_speed = 0.15
+
 
         # Definindo vetores e velocidade
-        self.direction = pygame.math.Vector2()
+
         self.speed = 5
         self.attacking = False
         self.attack_cooldown = 400
         self.attack_time = 0 
 
         # Definindo obstáculos
-        self.obstacles_sprites = obstacles_sprites
+        self.obstacle_sprites = obstacle_sprites
 
         # Weapon
         self.create_attack = create_attack
@@ -48,7 +47,7 @@ class Player(pygame.sprite.Sprite):
         self.stats = {'health':100,'energy':60,'attack':10,'magic':4, 'speed':6}
         self.health = self.stats['health'] * 0.5
         self.energy = self.stats['energy'] * 0.8
-        self.exp = 123
+        self.exp = 666
         self.speed = self.stats['speed']
         
     def import_player_assets(self):
@@ -114,7 +113,6 @@ class Player(pygame.sprite.Sprite):
             self.weapon_index -=1
             self.weapon =  list(weapon_data.keys())[self.weapon_index]
 
-
     def get_status (self):
         
         # Definindo sempre como idle
@@ -135,45 +133,6 @@ class Player(pygame.sprite.Sprite):
             if 'attack' in self.status :
                 self.status = self.status.replace('_attack','')
 
-    def move(self,speed):
-        # Definindo função de movimento
-        # Normalizando o vetor para não ter velocidade vetorial dobrada
-        if self.direction.magnitude() != 0:
-            self.direction = self.direction.normalize()
-
-        # movendo, de fato, a classe Player
-        self.hitbox.x += self.direction.x * speed
-        self.collision('horizontal')
-        self.hitbox.y += self.direction.y * speed
-        self.collision('vertical')
-        self.rect.center = self.hitbox.center
-
-    def collision(self, direction):
-        # Função que detecta colisões
-
-        if direction == 'horizontal':
-            for sprite in self.obstacles_sprites:
-                if sprite.hitbox.colliderect(self.hitbox):
-                    #movendo-se para a direita
-                    if self.direction.x > 0:
-                        self.hitbox.right = sprite.hitbox.left
-
-                    #movendo-se para a esquerda
-                    if self.direction.x < 0:
-                        self.hitbox.left = sprite.hitbox.right
-
-
-
-        if direction == 'vertical':
-            for sprite in self.obstacles_sprites:
-                if sprite.hitbox.colliderect(self.hitbox):
-                    if self.direction.y > 0:
-                        self.hitbox.bottom = sprite.hitbox.top
-
-                    #movendo-se para cima
-                    if self.direction.y < 0:
-                        self.hitbox.top = sprite.hitbox.bottom
-
     def cooldowns(self):
         current_time  = pygame.time.get_ticks()
 
@@ -182,9 +141,9 @@ class Player(pygame.sprite.Sprite):
                 self.attacking = False
                 self.destroy_attack()
         if not self.can_switch_weapon:
-            if current_time - self.weapon_switch_time >= self.switch_duration_cooldown:
+            
+            if current_time - self.weapon_switch_time >= self.switch_duration_cooldown: # type: ignore
                 self.can_switch_weapon = True
-
 
     def animate(self):
         animation = self.animations[self.status]
@@ -198,6 +157,13 @@ class Player(pygame.sprite.Sprite):
         self.image = animation[int(self.frame_index)]
         self.rect = self.image.get_rect(center = self.hitbox.center)
 
+    def animate (self):
+        animation = self.animations[self.status]
+        self.frame_index += self.animation_speed
+        if self.frame_index >= len(animation):
+            self.frame_index = 0
+        self.image = animation[int(self.frame_index)]
+        self.rect = self.image.get_rect(center = self.hitbox.center)
 
     def update(self):
         self.input()

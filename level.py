@@ -7,6 +7,7 @@ from support import import_csv_layout, import_folder
 from random import choice
 from weapons import Weapon
 from ui import UI
+from enemy import Enemy
 class Level:
     def __init__(self):
 
@@ -15,7 +16,7 @@ class Level:
 
         # configurando grupos de sprites com propriedades diferentes 
         self.visible_sprites = YSortCameraGroup()
-        self.obstacles_sprites = pygame.sprite.Group()
+        self.obstacle_sprites = pygame.sprite.Group()
 
         # Criando sprite de ataque
         self.current_attack = None
@@ -25,12 +26,12 @@ class Level:
  
         #interface do usuario
         self.ui = UI()
-
+                    #'objetos': import_csv_layout('assets/Mapa/CSVs/Mapa_Objetos com colisão.csv'),
+                    #'plataformas': import_csv_layout('assets/Mapa/CSVs/Mapa_Plataformas.csv'),
     def create_map(self):
         layouts = {
             'borda': import_csv_layout('assets/Mapa/CSVs/Mapa_Floorblock.csv'),
-            'objetos': import_csv_layout('assets/Mapa/CSVs/Mapa_Objetos com colisão.csv'),
-            'plataformas': import_csv_layout('assets/Mapa/CSVs/Mapa_Plataformas.csv'),
+            'enemies' : import_csv_layout('assets/Mapa/CSVs/Mapa_Enemies.csv')
         }
         # graphics = {
             #  'grama': import_folder('')
@@ -43,8 +44,20 @@ class Level:
                         x = col_index * TILESIZE
                         y = row_index * TILESIZE
                         if style == 'borda':
-                            Tile((x,y), [self.obstacles_sprites],'invisible')
-        self.player  = Player((4145,1900),[self.visible_sprites],self.obstacles_sprites, self.create_attack,self.destroy_attack, self.create_magic )
+                            Tile((x,y), [self.obstacle_sprites],'invisible')
+                        
+                        if style == 'enemies':
+                            if col == '420':
+                                self.player  = Enemy('bamboo',(x,y),[self.visible_sprites],self.obstacle_sprites)
+                            elif col == '69':
+                                self.player  = Enemy('squid',(x,y),[self.visible_sprites],self.obstacle_sprites)
+                            elif col == '24':
+                                self.player  = Enemy('spirit',(x,y),[self.visible_sprites],self.obstacle_sprites)
+                            elif col == '22':
+                                self.player  = Enemy('raccoon',(x,y),[self.visible_sprites],self.obstacle_sprites)
+                           
+
+        self.player  = Player((4145,1900),[self.visible_sprites],self.obstacle_sprites, self.create_attack,self.destroy_attack, self.create_magic )
 
     def create_attack(self):
         self.current_attack = Weapon(self.player,[self.visible_sprites])
@@ -61,6 +74,7 @@ class Level:
         # Atualizar e desenhar o jogo
         self.visible_sprites.custom_draw(self.player)
         self.visible_sprites.update()
+        self.visible_sprites.enemy_update(self.player)
         self.ui.display(self.player)
 
 
@@ -74,19 +88,11 @@ class YSortCameraGroup(pygame.sprite.Group):
         self.half_height = self.display_surface.get_size()[1]//2
         self.offset = pygame.math.Vector2()
 
-        # Criando overlay
-        self.overlay_surf = pygame.image.load("assets/Mapa/Imagens/overlay.png").convert_alpha()
-        self.overlay_rect = self.overlay_surf.get_rect(topleft = (0,0))
-
         # Criando o chão
         self.floor_surf = pygame.image.load("assets/Mapa/Imagens/Mapa.png").convert()
         self.floor_rect = self.floor_surf.get_rect(topleft = (0,0))
 
     def custom_draw(self, player):
-
-        # Desenhar as árvores
-        overlay_offset_pos = self.floor_rect.topleft-self.offset
-        self.display_surface.blit(self.overlay_surf,overlay_offset_pos)
 
         # Recebendo o desvio do player
         self.offset.x = player.rect.centerx - self.half_width
@@ -100,4 +106,15 @@ class YSortCameraGroup(pygame.sprite.Group):
         for sprite in sorted(self.sprites(), key = lambda sprite : sprite.rect.centery):
             offset_pos = sprite.rect.topleft - self.offset
             self.display_surface.blit(sprite.image,offset_pos)
-        
+    
+    def enemy_update(self,player):
+        enemy_sprites=[sprite for sprite in self.sprites() if hasattr(sprite, 'sprite_type') and sprite.sprite_type == 'enemy' ]
+        for enemy in enemy_sprites:
+            enemy.enemy_update(player)
+    
+class overlay(pygame.sprite.Sprite):
+    def __init__(self, groups):
+        super().__init__(groups)
+        self.overlay_surf = pygame.image.load("assets/Mapa/Imagens/overlay.png").convert_alpha()
+        self.overlay_rect = self.overlay_surf.get_rect(topleft = (0,0))
+        self.mask = pygame.mask.from_surface(self.overlay_surf)
