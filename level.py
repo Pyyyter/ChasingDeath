@@ -28,6 +28,9 @@ class Level:
  
         #interface do usuario
         self.ui = UI()
+        
+        #self.animation_player = AnimationPlayer()
+        #self.magic_player = MagicPlayer(self.animation_player)
                     #'objetos': import_csv_layout('assets/Mapa/CSVs/Mapa_Objetos com colisão.csv'),
                     #'plataformas': import_csv_layout('assets/Mapa/CSVs/Mapa_Plataformas.csv'),
     def create_map(self):
@@ -62,23 +65,33 @@ class Level:
         self.player  = Player((4145,1900),[self.visible_sprites],self.obstacle_sprites, self.create_attack,self.destroy_attack, self.create_magic )
 
     def create_attack(self):
-        self.current_attack = Weapon(self.player,[self.visible_sprites])
+        self.current_attack = Weapon(self.player,[self.visible_sprites,self.attack_sprites])
 
     def create_magic(self,style,strength,cost):
-        pass
+        pass  
+            
 
     def destroy_attack(self):
         if self.current_attack:
             self.current_attack.kill()
         self.current_attack = None
 
+    def player_attack_logic(self):
+        if self.attack_sprites:
+            for attack_sprite in self.attack_sprites:
+                collision_sprites = pygame.sprite.spritecollide(attack_sprite,self.attackable_sprites,True)
+                if collision_sprites:
+                    for target_sprite in collision_sprites:
+                        #target_sprite.kill()
+                        target_sprite.get_damage(self.player,attack_sprite.sprite_type)
+
     def run(self): 
         # Atualizar e desenhar o jogo
         self.visible_sprites.custom_draw(self.player)
         self.visible_sprites.update()
+        self.player_attack_logic()  
         self.visible_sprites.enemy_update(self.player)
         self.ui.display(self.player)
-
 
 class YSortCameraGroup(pygame.sprite.Group):
     def __init__(self):
@@ -114,9 +127,11 @@ class YSortCameraGroup(pygame.sprite.Group):
         for enemy in enemy_sprites:
             enemy.enemy_update(player)
     
-class overlay(pygame.sprite.Sprite):
-    def __init__(self, groups):
-        super().__init__(groups)
-        self.overlay_surf = pygame.image.load("assets/Mapa/Imagens/overlay.png").convert_alpha()
-        self.overlay_rect = self.overlay_surf.get_rect(topleft = (0,0))
-        self.mask = pygame.mask.from_surface(self.overlay_surf)
+
+
+# class overlay(pygame.sprite.Sprite):
+#     def __init__(self, groups):
+#         super().__init__(groups)
+#         self.overlay_surf = pygame.image.load("assets/Mapa/Imagens/overlay.png").convert_alpha()
+#         self.overlay_rect = self.overlay_surf.get_rect(topleft = (0,0))
+#         self.mask = pygame.mask.from_surface(self.overlay_surf)

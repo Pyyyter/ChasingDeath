@@ -93,6 +93,14 @@ class Enemy(Entity):
         self.image = animation[int(self.frame_index)]
         self.rect = self.image.get_rect(center = self.hitbox.center)
 
+    def get_damage(self,player,attack_type):
+        if attack_type == 'weapon':
+            self.health -= player.get_full_weapon_damage()
+
+    def check_death(self):
+        if self.health<= 0:
+            self.kill()
+
     def enemy_update(self,player):
         self.get_status(player)
         self.animate()
